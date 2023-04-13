@@ -2,7 +2,7 @@ POST http://localhost:8080/order
 Content-Type: application/json
 
 {
-  "number": "100",
+  "id": "100",
   "content": [
     {
       "item": "MX MECHANICAL MINI FOR MAC",
@@ -41,3 +41,7 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080//order/100
+
+###
+GET http://localhost:8080/order/100/total
+Content-Type: application/json

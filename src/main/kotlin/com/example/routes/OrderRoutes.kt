@@ -17,14 +17,14 @@ fun Route.listOrdersRoute() {
                 call.respondText("No orders found.", status = HttpStatusCode.NotFound)
             }
         }
-        get("{number?}") {
-            val number = call.parameters["number"] ?: return@get call.respondText(
-                "No order number.",
+        get("{orderId?}") {
+            val orderId = call.parameters["orderId"] ?: return@get call.respondText(
+                "No order id.",
                 status = HttpStatusCode.BadRequest
             )
 
-            val order = orders.find { it.number == number } ?: return@get call.respondText(
-                "Order with id: $number was not found!",
+            val order = orders.find { it.id == orderId } ?: return@get call.respondText(
+                "Order with id: $orderId was not found!",
                 status = HttpStatusCode.NotFound
             )
 
@@ -36,16 +36,16 @@ fun Route.listOrdersRoute() {
 
             call.respondText("Order successfully created.", status = HttpStatusCode.Created)
         }
-        delete("{number?}") {
-            val number = call.parameters["number"] ?: return@delete call.respondText(
-                "Missing order number",
+        delete("{orderId?}") {
+            val orderId = call.parameters["orderId"] ?: return@delete call.respondText(
+                "Missing order id",
                 status = HttpStatusCode.BadRequest
             )
 
-            if (orders.removeIf { it.number == number }) {
+            if (orders.removeIf { it.id == orderId }) {
                 call.respondText("Order deleted successfully.", status = HttpStatusCode.NoContent)
             } else {
-                call.respondText("Order with id: $number was not found!", status = HttpStatusCode.BadRequest)
+                call.respondText("Order with id: $orderId was not found!", status = HttpStatusCode.BadRequest)
             }
         }
     }

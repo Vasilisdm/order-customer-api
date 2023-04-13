@@ -3,7 +3,7 @@ package com.example.models
 import kotlinx.serialization.Serializable
 @Serializable
 data class Order(
-    val number: String,
+    val id: String,
     val content: List<OrderItem>
 )
 @Serializable
