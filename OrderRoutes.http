@@ -1,0 +1,43 @@
+POST http://localhost:8080/order
+Content-Type: application/json
+
+{
+  "number": "100",
+  "content": [
+    {
+      "item": "MX MECHANICAL MINI FOR MAC",
+      "amount": "1",
+      "price": "159.99"
+    },
+    {
+      "item": "LIFT FOR MAC",
+      "amount": "1",
+      "price": "79.99"
+    },
+    {
+      "item": "MX MASTER 3S FOR MAC",
+      "amount": "1",
+      "price": "129.99"
+    },
+    {
+      "item": "MX KEYS MINI POUR MAC",
+      "amount": "1",
+      "price": "119.00"
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/order
+Content-Type: application/json
+
+###
+GET http://localhost:8080/order/100
+Content-Type: application/json
+
+### Not existing order number
+GET http://localhost:8080/order/1000
+Content-Type: application/json
+
+###
+DELETE http://localhost:8080//order/100
