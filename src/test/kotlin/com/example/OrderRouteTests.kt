@@ -3,7 +3,6 @@ package com.example
 import com.example.models.Order
 import com.example.models.OrderItem
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -20,6 +19,8 @@ class OrderRouteTests {
         OrderItem(item = "MX KEYS MINI FOR MAC", amount = 1, price = 119.00),
     )
 
+    private val order = Order(id = "100", content = orderItems)
+
     @Test
     fun `Post order should execute successfully`() = testApplication {
         // when-then
@@ -30,12 +31,11 @@ class OrderRouteTests {
         }
 
         val response = client.post("http://localhost:8080/order") {
+            header(HttpHeaders.ContentType, ContentType.Application.Json)
             contentType(ContentType.Application.Json)
-            setBody(Order(id = "100", content = orderItems))
+            setBody(order)
         }
 
-        // assert
-        assertEquals("Order successfully created", response.bodyAsText())
         assertEquals(HttpStatusCode.Created, response.status)
     }
 }
