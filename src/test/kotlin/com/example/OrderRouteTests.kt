@@ -2,13 +2,12 @@ package com.example
 
 import com.example.models.Order
 import com.example.models.OrderItem
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.testing.*
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import kotlin.test.*
 
 class OrderRouteTests {
 
@@ -25,13 +24,12 @@ class OrderRouteTests {
     fun `Post order should execute successfully`() = testApplication {
         // when-then
         val client = createClient {
-            this@testApplication.install(ContentNegotiation) {
+            install(ContentNegotiation) {
                 json()
             }
         }
 
-        val response = client.post("http://localhost:8080/order") {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
+        val response = client.post("/order") {
             contentType(ContentType.Application.Json)
             setBody(order)
         }
