@@ -1,6 +1,7 @@
 package com.example.dao
 
 import com.example.models.CustomersTable
+import com.example.models.OrderItemsTable
 import com.example.models.OrdersTable
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
@@ -15,6 +16,8 @@ object DatabaseFactory {
         transaction(database) {
             SchemaUtils.create(CustomersTable)
             SchemaUtils.create(OrdersTable)
+            SchemaUtils.create(OrderItemsTable)
+            addLogger(StdOutSqlLogger)
         }
     }
 

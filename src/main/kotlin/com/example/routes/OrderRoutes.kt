@@ -1,7 +1,7 @@
 package com.example.routes
 
 import com.example.dao.OrdersRepository
-import com.example.models.OrderCreation
+import com.example.models.Order
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -35,7 +35,7 @@ fun Route.listOrdersRoute() {
 //            call.respond(order)
         }
         post {
-            val order = call.receive<OrderCreation>()
+            val order = call.receive<Order>()
             orders.add(order)
 
             call.respondText("Order successfully created.", status = HttpStatusCode.Created)

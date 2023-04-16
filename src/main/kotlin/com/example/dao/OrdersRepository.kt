@@ -12,7 +12,7 @@ class OrdersRepository : Orders {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addOrderItem(orderId: Int, item: OrderItemCreation) = DatabaseFactory.dbQuery {
+    override suspend fun addOrderItem(orderId: Int, item: OrderItem) = DatabaseFactory.dbQuery {
         val order = OrderEntity[orderId]
         OrderItemEntity.new {
             name = item.name
@@ -22,9 +22,9 @@ class OrdersRepository : Orders {
         }.id.value
     }
 
-    override suspend fun add(order: OrderCreation): Int = DatabaseFactory.dbQuery {
+    override suspend fun add(order: Order): Int = DatabaseFactory.dbQuery {
         val orderId = OrderEntity.new {
-            creationDate = LocalDateTime.now()
+            creationDate = order.creationDate
         }.id.value
 
         order.items.forEach {

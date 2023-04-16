@@ -1,7 +1,7 @@
 package com.example.routes
 
-import com.example.models.OrderCreation
-import com.example.models.OrderItemCreation
+import com.example.models.Order
+import com.example.models.OrderItem
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*

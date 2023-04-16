@@ -1,33 +1,20 @@
 package com.example.models
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.ReferenceOption
-import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
 
 @Serializable
-data class OrderCreation(
-    val creationDate: String,
-    val items: List<OrderItemCreation>
-)
-
-@Serializable
-data class OrderItemCreation(
-    val name: String,
-    val amount: Int,
-    val price: Double
-)
-
 data class Order(
     val id: Int = 0,
-    val creationDate: LocalDateTime,
+    val creationDate: String,
     val items: List<OrderItem>
 )
-
+@Serializable
 data class OrderItem(
     val id: Int = 0,
     val name: String,
@@ -36,8 +23,7 @@ data class OrderItem(
 )
 
 object OrdersTable : IntIdTable(name = "Orders") {
-    val creationDate = datetime("creation_date")
-
+    val creationDate = varchar(name = "creation_date", length = 128)
 }
 
 class OrderEntity(id: EntityID<Int>) : IntEntity(id) {
@@ -73,5 +59,3 @@ fun OrderEntity.toOrder() = Order(
     creationDate = creationDate,
     items = items.map { it.toOrderItem() }
 )
-
-//val orders = mutableListOf<OrderCreation>()
