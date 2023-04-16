@@ -18,7 +18,7 @@ data class CustomerCreated(
     val email: String
 )
 
-object Customers : Table() {
+object CustomersTable : Table(name = "Customers") {
     val id = integer(name = "id").autoIncrement()
     val firstName = varchar(name = "firstName", length = 128)
     val lastName = varchar(name = "lastName", length = 128)
