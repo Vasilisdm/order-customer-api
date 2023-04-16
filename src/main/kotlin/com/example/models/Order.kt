@@ -1,5 +1,6 @@
 package com.example.models
 
+import com.example.models.OrderEntity.Companion.referrersOn
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -49,11 +50,10 @@ object OrderItemsTable : IntIdTable("OrderItems") {
 
 class OrderItemEntity(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<OrderItemEntity>(OrderItemsTable)
-
     var name by OrderItemsTable.name
     var amount by OrderItemsTable.amount
     var price by OrderItemsTable.price
-    var order by OrderEntity referrersOn OrderItemsTable.order
+    val order by OrderEntity referrersOn OrderItemsTable.order
 }
 
 fun OrderItemEntity.toOrderItem() = OrderItem(
@@ -66,7 +66,7 @@ fun OrderItemEntity.toOrderItem() = OrderItem(
 class OrderEntity(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<OrderEntity>(OrdersTable)
     var creationDate by OrdersTable.creationDate
-    var items by OrderItemEntity referrersOn OrderItemsTable.order
+    val items by OrderItemEntity referrersOn OrderItemsTable.order
 }
 
 fun OrderEntity.toOrder() = Order(
