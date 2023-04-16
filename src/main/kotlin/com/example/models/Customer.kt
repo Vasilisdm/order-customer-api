@@ -1,10 +1,17 @@
 package com.example.models
 
 import kotlinx.serialization.Serializable
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Table
 
 @Serializable
-data class Customer(
+data class CustomerCreation(
+    val firstName: String,
+    val lastName: String,
+    val email: String
+)
+
+@Serializable
+data class CustomerCreated(
     val id: Int,
     val firstName: String,
     val lastName: String,
@@ -17,7 +24,5 @@ object Customers : Table() {
     val lastName = varchar(name = "lastName", length = 128)
     val email = varchar(name = "email", length = 255)
 
-    override val primaryKey = PrimaryKey(id)
+    override val primaryKey = PrimaryKey(id, name = "PK_Customers_ID")
 }
-
-val customers = mutableListOf<Customer>()

@@ -1,8 +1,7 @@
 package com.example.routes
 
 import com.example.dao.DAOFacadeImpl
-import com.example.models.Customer
-import com.example.models.customers
+import com.example.models.CustomerCreation
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -14,8 +13,9 @@ private val dao = DAOFacadeImpl()
 fun Route.customerRouting() {
     route("/customer") {
         get {
-            if (dao.allCustomers().isNotEmpty()) {
-                call.respond(customers)
+            val allCustomers = dao.allCustomers()
+            if (allCustomers.isNotEmpty()) {
+                call.respond(allCustomers)
             } else {
                 call.respondText("No customers found", status = HttpStatusCode.NotFound)
             }
@@ -23,35 +23,34 @@ fun Route.customerRouting() {
         get("{id?}") {
             val id =
                 call.parameters["id"]?.toIntOrNull() ?: return@get call.respondText(
-                    "Missing id",
+                    text = "Missing id or id is not an integer",
                     status = HttpStatusCode.BadRequest
                 )
 
-            val customer = customers.find { it.id == id } ?: return@get call.respondText(
-                "Customer with id: $id was not found!",
+            val customer = dao.customer(id = id) ?: return@get call.respondText(
+                text = "Customer with id: $id was not found!",
                 status = HttpStatusCode.NotFound
             )
 
             call.respond(customer)
         }
         post {
-            val customer = call.receive<Customer>()
-            customers.add(customer)
+            val customer = call.receive<CustomerCreation>()
+            dao.addNewCustomer(customer)
 
             call.respondText("Customer created successfully", status = HttpStatusCode.Created)
         }
         delete("{id?}") {
             val id = call.parameters["id"]?.toIntOrNull() ?: return@delete call.respondText(
-                "Missing id",
+                text = "Missing id or id is not an integer.",
                 status = HttpStatusCode.BadRequest
             )
 
-            if (customers.removeIf { it.id == id }) {
-                call.respondText("Customer deleted successfully", status = HttpStatusCode.NoContent)
+            if (dao.deleteCustomer(id)) {
+                call.respondText(text = "Customer deleted successfully", status = HttpStatusCode.NoContent)
             } else {
-                call.respondText("Customer with id: $id, was not found!", status = HttpStatusCode.NotFound)
+                call.respondText(text = "Customer with id: $id, was not found!", status = HttpStatusCode.NotFound)
             }
-
         }
     }
 }

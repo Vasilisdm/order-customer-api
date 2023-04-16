@@ -8,9 +8,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
     fun init() {
-        val jdbcURL = "jdbc:h2:file:./build/db"
+        val jdbcURL = "jdbc:h2:file:./build/customerdb"
         val driverClassName = "org.h2.Driver"
-        val database = Database.connect(jdbcURL, driverClassName)
+        val database = Database.connect(url = jdbcURL, driver = driverClassName)
         transaction(database) {
             SchemaUtils.create(Customers)
         }

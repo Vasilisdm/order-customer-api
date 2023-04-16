@@ -1,4 +1,4 @@
-package com.example
+package com.example.routes
 
 import com.example.models.Order
 import com.example.models.OrderItem
@@ -20,20 +20,22 @@ class OrderRouteTests {
 
     private val order = Order(id = "100", content = orderItems)
 
-//    @Test
-//    fun `Post order should execute successfully`() = testApplication {
-//        // when-then
-//        val client = createClient {
-//            install(ContentNegotiation) {
-//                json()
-//            }
-//        }
-//
-//        val response = client.post("/order") {
-//            contentType(ContentType.Application.Json)
-//            setBody(order)
-//        }
-//
-//        assertEquals(HttpStatusCode.Created, response.status)
-//    }
+    @Test
+    fun `Post order should execute successfully`() = testApplication {
+        // given
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        // when
+        val response = client.post("/order") {
+            contentType(ContentType.Application.Json)
+            setBody(order)
+        }
+
+        // then
+        assertEquals(HttpStatusCode.Created, response.status)
+    }
 }
