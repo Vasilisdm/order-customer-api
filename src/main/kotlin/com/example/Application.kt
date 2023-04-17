@@ -8,7 +8,7 @@ import com.example.plugins.*
 fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.module() {
-    DatabaseFactory.init()
+    DatabaseFactory.init(environment.config)
     configureRouting()
     configureSerialization()
 }
