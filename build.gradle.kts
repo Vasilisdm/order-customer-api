@@ -5,6 +5,7 @@ val exposed_version: String by project
 val h2_version: String by project
 val hikari_version: String by project
 val flyway_version: String by project
+val jooq_version: String by project
 
 plugins {
     application
@@ -41,6 +42,10 @@ dependencies {
     implementation("com.h2database:h2:$h2_version")
     implementation("com.zaxxer:HikariCP:$hikari_version")
     implementation("org.flywaydb:flyway-core:$flyway_version")
+
+    implementation("org.jooq:jooq:$jooq_version")
+    implementation("org.jooq:jooq-meta:$jooq_version")
+    implementation("org.jooq:jooq-codegen:$jooq_version")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
