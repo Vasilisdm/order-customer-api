@@ -3,7 +3,6 @@ package com.example.dao
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*
 import kotlinx.coroutines.Dispatchers
-import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 object DatabaseFactory {
     fun init(config: ApplicationConfig) {
@@ -17,9 +16,6 @@ object DatabaseFactory {
             }
         }
     }
-
-    suspend fun <T> dbQuery(block: suspend () -> T): T =
-        newSuspendedTransaction(Dispatchers.IO) { block() }
 
     private fun createDataSource(driver: String, url: String) = HikariDataSource().apply {
         jdbcUrl = url

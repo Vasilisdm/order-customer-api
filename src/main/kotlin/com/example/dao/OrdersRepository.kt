@@ -12,29 +12,16 @@ class OrdersRepository : Orders {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addOrderItem(orderId: Int, item: OrderItem) = DatabaseFactory.dbQuery {
-        val order = OrderEntity[orderId]
-        OrderItemEntity.new {
-            name = item.name
-            amount = item.amount
-            price = item.price
-            this.order = order
-        }.id.value
+    override suspend fun add(order: Order): Int? {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun add(order: Order): Int = DatabaseFactory.dbQuery {
-        val orderId = OrderEntity.new {
-            creationDate = order.creationDate
-        }.id.value
-
-        order.items.forEach {
-            addOrderItem(orderId = orderId, it)
-        }
-
-        orderId
+    override suspend fun addOrderItem(orderId: Int, item: OrderItem): Int {
+        TODO("Not yet implemented")
     }
 
     override suspend fun delete(id: Int?): Boolean {
         TODO("Not yet implemented")
     }
+
 }

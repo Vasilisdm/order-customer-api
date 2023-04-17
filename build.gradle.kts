@@ -4,6 +4,7 @@ val logback_version: String by project
 val exposed_version: String by project
 val h2_version: String by project
 val hikari_version: String by project
+val flyway_version: String by project
 
 plugins {
     application
@@ -37,14 +38,9 @@ dependencies {
 
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
-    implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("com.h2database:h2:$h2_version")
-
-    implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
-
     implementation("com.zaxxer:HikariCP:$hikari_version")
+    implementation("org.flywaydb:flyway-core:$flyway_version")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
