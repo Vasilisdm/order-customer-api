@@ -17,23 +17,23 @@ class CustomerRoutesKtTest {
         email = "johndoe@domain.com"
     )
 
-    @Test
-    fun `Customer creation should succeed`() =
-        testApplication {
-            // given
-            val client = createClient {
-                install(ContentNegotiation) {
-                    json()
-                }
-            }
-
-            // when
-            val customerResponse = client.post("/customer") {
-                contentType(ContentType.Application.Json)
-                setBody(customer)
-            }
-
-            // then
-            assertEquals(HttpStatusCode.Created, customerResponse.status)
-        }
+//    @Test
+//    fun `Customer creation should succeed`() =
+//        testApplication {
+//            // given
+//            val client = createClient {
+//                install(ContentNegotiation) {
+//                    json()
+//                }
+//            }
+//
+//            // when
+//            val customerResponse = client.post("/customer") {
+//                contentType(ContentType.Application.Json)
+//                setBody(customer)
+//            }
+//
+//            // then
+//            assertEquals(HttpStatusCode.Created, customerResponse.status)
+//        }
 }

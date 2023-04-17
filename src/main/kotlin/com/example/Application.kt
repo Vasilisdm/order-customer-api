@@ -9,6 +9,6 @@ fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.module() {
     DatabaseFactory.init(environment.config)
-    configureRouting()
-    configureSerialization()
+//    configureRouting()
+//    configureSerialization()
 }
