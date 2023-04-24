@@ -1,3 +1,5 @@
+import org.flywaydb.gradle.task.FlywayMigrateTask
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -56,24 +58,6 @@ flyway {
     driver = "org.h2.Driver"
 }
 
-sourceSets {
-    //add a flyway sourceSet
-    val flyway by creating {
-        compileClasspath += sourceSets.main.get().compileClasspath
-        runtimeClasspath += sourceSets.main.get().runtimeClasspath
-    }
-    //main sourceSet depends on the output of flyway sourceSet
-    main {
-        output.dir(flyway.output)
-    }
-}
-
-val migrationDirs = listOf(
-    "$projectDir/src/main/resources/db/migration",
-)
-tasks.flywayMigrate {
-    dependsOn("flywayClasses")
-    migrationDirs.forEach { inputs.dir(it) }
-    outputs.dir("${project.buildDir}/generated/flyway")
-    doFirst { delete(outputs.files) }
+tasks.named("build") {
+    dependsOn("flywayMigrate")
 }
