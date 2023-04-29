@@ -74,7 +74,9 @@ jooq {
                 generator.apply {
                     name = "org.jooq.codegen.DefaultGenerator"
                     database.apply {
+                        name = "org.jooq.meta.h2.H2Database"
                         excludes = "flyway_schema_history"
+                        inputSchema = "PUBLIC"
                     }
                     generate.apply {
                         isDeprecated = false
