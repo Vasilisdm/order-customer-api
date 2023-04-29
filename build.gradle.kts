@@ -79,10 +79,9 @@ jooq {
                         inputSchema = "PUBLIC"
                     }
                     generate.apply {
-                        isDeprecated = false
-                        isRecords = false
                         isImmutablePojos = true
-                        isFluentSetters = false
+                        isPojosAsKotlinDataClasses = true
+                        isKotlinNotNullPojoAttributes = true
                     }
                     target.apply {
                         packageName = "nu.studer.sample"
