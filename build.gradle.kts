@@ -61,7 +61,7 @@ dependencies {
 }
 
 flyway {
-    url = "jdbc:h2:${project.buildDir}/generated/flyway/customers"
+    url = "jdbc:h2:${project.buildDir}/generated/flyway/customerApi"
     driver = "org.h2.Driver"
 }
 
@@ -73,7 +73,7 @@ jooq {
                 logging = Logging.WARN
                 jdbc.apply {
                     driver = "org.h2.Driver"
-                    url = "jdbc:h2:${project.buildDir}/generated/flyway/customers"
+                    url = "jdbc:h2:${project.buildDir}/generated/flyway/customerApi"
                 }
                 generator.apply {
                     name = "org.jooq.codegen.DefaultGenerator"
@@ -98,8 +98,6 @@ jooq {
 }
 
 tasks.named("build") {
-    dependsOn("flywayMigrate")
-    dependsOn("generateJooq")
 }
 
 tasks.withType<KotlinCompile> {
