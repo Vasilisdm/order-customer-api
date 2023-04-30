@@ -15,12 +15,13 @@ data class OrderItemCreation(
 )
 
 @Serializable
-data class Order(
+data class OrderCreated(
     val id: Long = 0,
-    val items: List<OrderItem>
+
+    val items: List<OrderItemCreated>
 )
 @Serializable
-data class OrderItem(
+data class OrderItemCreated(
     val id: Long = 0,
     val orderId: Long = 0,
     val name: String,

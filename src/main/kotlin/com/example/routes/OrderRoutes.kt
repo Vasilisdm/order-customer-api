@@ -1,7 +1,7 @@
 package com.example.routes
 
 import com.example.dao.OrdersRepository
-import com.example.models.Order
+import com.example.models.OrderCreation
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -13,12 +13,13 @@ private val orders = OrdersRepository()
 fun Route.listOrdersRoute() {
     route("/order") {
         get {
-            TODO("Fix orders retrieval")
-//            if (orders.isNotEmpty()) {
-//                call.respond(orders)
-//            } else {
-//                call.respondText("No orders found.", status = HttpStatusCode.NotFound)
-//            }
+            val orders = orders.getAll()
+
+            if (orders.isNotEmpty()) {
+                call.respond(orders)
+            } else {
+                call.respondText("No orders found.", status = HttpStatusCode.NotFound)
+            }
         }
         get("{orderId?}") {
             TODO("Fix order retrieval")
@@ -35,7 +36,7 @@ fun Route.listOrdersRoute() {
 //            call.respond(order)
         }
         post {
-            val order = call.receive<Order>()
+            val order = call.receive<OrderCreation>()
             orders.add(order)
 
             call.respondText("Order successfully created.", status = HttpStatusCode.Created)
