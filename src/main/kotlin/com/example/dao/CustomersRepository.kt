@@ -11,8 +11,8 @@ class CustomersRepository : Customers {
     override suspend fun getAll(): List<CustomerCreated> =
         create.select().from(CUSTOMERS).fetchInto(CustomerCreated::class.java)
 
-    override suspend fun get(id: Int): CustomerCreated? =
-        create.select().from(CUSTOMERS).where(CUSTOMERS.ID.eq(id.toLong())).fetchOneInto(CustomerCreated::class.java)
+    override suspend fun get(id: Long): CustomerCreated? =
+        create.select().from(CUSTOMERS).where(CUSTOMERS.ID.eq(id)).fetchOneInto(CustomerCreated::class.java)
 
     override suspend fun add(customerCreation: CustomerCreation): CustomerCreated? =
         create.insertInto(CUSTOMERS, CUSTOMERS.FIRST_NAME, CUSTOMERS.LAST_NAME, CUSTOMERS.EMAIL)
@@ -25,13 +25,13 @@ class CustomersRepository : Customers {
             .set(CUSTOMERS.FIRST_NAME, customerCreated.firstName)
             .set(CUSTOMERS.LAST_NAME, customerCreated.lastName)
             .set(CUSTOMERS.EMAIL, customerCreated.email)
-            .where(CUSTOMERS.ID.eq(customerCreated.id.toLong())).execute()
+            .where(CUSTOMERS.ID.eq(customerCreated.id)).execute()
 
         return rowUpdated > 0
     }
 
-    override suspend fun delete(id: Int): Boolean {
-        val numberOfRowsDeleted = create.deleteFrom(CUSTOMERS).where(CUSTOMERS.ID.eq(id.toLong())).execute()
+    override suspend fun delete(id: Long): Boolean {
+        val numberOfRowsDeleted = create.deleteFrom(CUSTOMERS).where(CUSTOMERS.ID.eq(id)).execute()
         return numberOfRowsDeleted > 0
     }
 

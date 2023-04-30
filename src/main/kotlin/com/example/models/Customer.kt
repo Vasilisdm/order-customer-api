@@ -12,7 +12,7 @@ data class CustomerCreation(
 
 @Serializable
 data class CustomerCreated(
-    val id: Int,
+    val id: Long,
     val firstName: String,
     val lastName: String,
     val email: String
