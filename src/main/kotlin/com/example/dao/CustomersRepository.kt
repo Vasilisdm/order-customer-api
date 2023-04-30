@@ -17,7 +17,7 @@ class CustomersRepository : Customers {
     override suspend fun add(customerCreation: CustomerCreation): CustomerCreated? =
         create.insertInto(CUSTOMERS, CUSTOMERS.FIRST_NAME, CUSTOMERS.LAST_NAME, CUSTOMERS.EMAIL)
             .values(customerCreation.firstName, customerCreation.lastName, customerCreation.email)
-            .returningResult(CUSTOMERS.ID, CUSTOMERS.FIRST_NAME, CUSTOMERS.LAST_NAME, CUSTOMERS.EMAIL)
+            .returningResult(CUSTOMERS)
             .fetchOneInto(CustomerCreated::class.java)
 
     override suspend fun edit(customerCreated: CustomerCreated): Boolean {
