@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.dao.CustomersRepository
+import com.example.models.CustomerCreated
 import com.example.models.CustomerCreation
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -39,6 +40,22 @@ fun Route.customerRouting() {
             customers.add(customer)
 
             call.respondText("Customer created successfully", status = HttpStatusCode.Created)
+        }
+        put {
+            val customer = call.receive<CustomerCreated>()
+
+            if (customers.edit(customer)) {
+                call.respondText(
+                    text = "Customer with id: ${customer.id} successfully updated.",
+                    status = HttpStatusCode.NoContent
+                )
+            } else {
+                call.respondText(
+                    text = "Customer with id: ${customer.id}, was not found!",
+                    status = HttpStatusCode.BadRequest
+                )
+            }
+
         }
         delete("{id?}") {
             val id = call.parameters["id"]?.toIntOrNull() ?: return@delete call.respondText(

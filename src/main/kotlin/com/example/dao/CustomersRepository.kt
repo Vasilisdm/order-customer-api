@@ -2,29 +2,37 @@ package com.example.dao
 
 import com.example.models.CustomerCreated
 import com.example.models.CustomerCreation
+import org.jooq.generated.Tables.CUSTOMERS
 
 class CustomersRepository : Customers {
 
-    val jooq = Database.getConnection()
+    private val create = Database.getConnection()
 
-    override suspend fun getAll(): List<CustomerCreated> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getAll(): List<CustomerCreated> =
+        create.select().from(CUSTOMERS).fetchInto(CustomerCreated::class.java)
 
-    override suspend fun get(id: Int): CustomerCreated? {
-        TODO("Not yet implemented")
-    }
+    override suspend fun get(id: Int): CustomerCreated? =
+        create.select().from(CUSTOMERS).where(CUSTOMERS.ID.eq(id.toLong())).fetchOneInto(CustomerCreated::class.java)
 
-    override suspend fun add(customerCreation: CustomerCreation): CustomerCreated? {
-        TODO("Not yet implemented")
-    }
+    override suspend fun add(customerCreation: CustomerCreation): CustomerCreated? =
+        create.insertInto(CUSTOMERS, CUSTOMERS.FIRST_NAME, CUSTOMERS.LAST_NAME, CUSTOMERS.EMAIL)
+            .values(customerCreation.firstName, customerCreation.lastName, customerCreation.email)
+            .returningResult(CUSTOMERS.ID, CUSTOMERS.FIRST_NAME, CUSTOMERS.LAST_NAME, CUSTOMERS.EMAIL)
+            .fetchOneInto(CustomerCreated::class.java)
 
-    override suspend fun edit(id: Int, firstName: String, lastName: String, email: String): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun edit(customerCreated: CustomerCreated): Boolean {
+        val rowUpdated = create.update(CUSTOMERS)
+            .set(CUSTOMERS.FIRST_NAME, customerCreated.firstName)
+            .set(CUSTOMERS.LAST_NAME, customerCreated.lastName)
+            .set(CUSTOMERS.EMAIL, customerCreated.email)
+            .where(CUSTOMERS.ID.eq(customerCreated.id.toLong())).execute()
+
+        return rowUpdated > 0
     }
 
     override suspend fun delete(id: Int): Boolean {
-        TODO("Not yet implemented")
+        val numberOfRowsDeleted = create.deleteFrom(CUSTOMERS).where(CUSTOMERS.ID.eq(id.toLong())).execute()
+        return numberOfRowsDeleted > 0
     }
 
 }
