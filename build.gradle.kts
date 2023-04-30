@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.cli.jvm.main
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jooq.meta.jaxb.Logging
 
 val ktor_version: String by project
@@ -8,6 +9,7 @@ val h2_version: String by project
 val hikari_version: String by project
 val flyway_version: String by project
 val jooq_version: String by project
+val hoplite_version: String by project
 
 plugins {
     application
@@ -52,6 +54,9 @@ dependencies {
     implementation("org.jooq:jooq-codegen:$jooq_version")
     jooqGenerator("com.h2database:h2:$h2_version")
 
+    implementation("com.sksamuel.hoplite:hoplite-core:$hoplite_version")
+    implementation("com.sksamuel.hoplite:hoplite-hocon:$hoplite_version")
+
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
@@ -84,7 +89,6 @@ jooq {
                         isKotlinNotNullPojoAttributes = true
                     }
                     target.apply {
-                        packageName = "nu.studer.sample"
                         directory = "$projectDir/generated/jooq"
                     }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
@@ -97,4 +101,10 @@ jooq {
 tasks.named("build") {
     dependsOn("flywayMigrate")
     dependsOn("generateJooq")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }

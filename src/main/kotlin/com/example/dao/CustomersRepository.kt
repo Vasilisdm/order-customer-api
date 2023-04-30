@@ -4,6 +4,9 @@ import com.example.models.CustomerCreated
 import com.example.models.CustomerCreation
 
 class CustomersRepository : Customers {
+
+    val jooq = Database.getConnection()
+
     override suspend fun getAll(): List<CustomerCreated> {
         TODO("Not yet implemented")
     }
