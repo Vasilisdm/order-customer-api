@@ -5,7 +5,7 @@ CREATE TABLE orders
 );
 
 
-create table items
+create table orderItems
 (
     id       bigint primary key auto_increment,
     order_id bigint       not null,
