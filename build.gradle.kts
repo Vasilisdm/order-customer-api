@@ -70,7 +70,7 @@ jooq {
     configurations {
         create("main") {
             jooqConfiguration.apply {
-                logging = Logging.WARN
+                logging = Logging.DEBUG
                 jdbc.apply {
                     driver = "org.h2.Driver"
                     url = "jdbc:h2:${project.buildDir}/generated/flyway/customerApi"

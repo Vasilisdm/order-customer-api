@@ -1,6 +1,6 @@
 package com.example.dao
 
-import com.example.configuration.DatabaseConfig
+import com.example.dao.configuration.DatabaseConfig
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.addResourceSource
 import org.jooq.DSLContext

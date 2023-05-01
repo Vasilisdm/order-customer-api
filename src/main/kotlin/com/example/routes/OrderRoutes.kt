@@ -22,18 +22,17 @@ fun Route.listOrdersRoute() {
             }
         }
         get("{orderId?}") {
-            TODO("Fix order retrieval")
-//            val orderId = call.parameters["orderId"]?.toIntOrNull() ?: return@get call.respondText(
-//                "No order id.",
-//                status = HttpStatusCode.BadRequest
-//            )
-//
-//            val order = orders.find { it.id == orderId } ?: return@get call.respondText(
-//                "Order with id: $orderId was not found!",
-//                status = HttpStatusCode.NotFound
-//            )
-//
-//            call.respond(order)
+            val orderId = call.parameters["orderId"]?.toLongOrNull() ?: return@get call.respondText(
+                "No order id.",
+                status = HttpStatusCode.BadRequest
+            )
+
+            val order = orders.get(id = orderId) ?: return@get call.respondText(
+                "Order with id: $orderId was not found!",
+                status = HttpStatusCode.NotFound
+            )
+
+            call.respond(order)
         }
         post {
             val order = call.receive<OrderCreation>()

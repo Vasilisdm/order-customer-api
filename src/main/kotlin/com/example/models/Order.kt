@@ -3,7 +3,7 @@ package com.example.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OrderCreation (
+data class OrderCreation(
     val items: List<OrderItemCreation>
 )
 
@@ -16,14 +16,14 @@ data class OrderItemCreation(
 
 @Serializable
 data class OrderCreated(
-    val id: Long = 0,
-
+    val id: Long,
     val items: List<OrderItemCreated>
 )
+
 @Serializable
 data class OrderItemCreated(
-    val id: Long = 0,
-    val orderId: Long = 0,
+    val id: Long,
+    val orderId: Long,
     val name: String,
     val quantity: Int,
     val price: Double
