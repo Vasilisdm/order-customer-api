@@ -38,7 +38,8 @@ class OrdersRepository : Orders {
     }
 
     override suspend fun delete(id: Long?): Boolean {
-        TODO("Not yet implemented")
+        val deletedRows = create.deleteFrom(ORDERS).where(ORDERS.ID.eq(id)).execute()
+        return deletedRows > 0
     }
 
 }

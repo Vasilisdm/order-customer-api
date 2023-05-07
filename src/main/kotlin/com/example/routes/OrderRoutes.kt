@@ -41,17 +41,16 @@ fun Route.listOrdersRoute() {
             call.respondText("Order successfully created.", status = HttpStatusCode.Created)
         }
         delete("{orderId?}") {
-            TODO("Fix order deletion")
-//            val orderId = call.parameters["orderId"]?.toIntOrNull() ?: return@delete call.respondText(
-//                "Missing order id",
-//                status = HttpStatusCode.BadRequest
-//            )
-//
-//            if (orders.removeIf { it.id == orderId }) {
-//                call.respondText("Order deleted successfully.", status = HttpStatusCode.NoContent)
-//            } else {
-//                call.respondText("Order with id: $orderId was not found!", status = HttpStatusCode.BadRequest)
-//            }
+            val orderId = call.parameters["orderId"]?.toLongOrNull() ?: return@delete call.respondText(
+                text = "No order id provided.",
+                status = HttpStatusCode.BadRequest
+            )
+
+            if (orders.delete(orderId)) {
+                call.respondText(text = "Order with id: $orderId deleted successfully.")
+            } else {
+                call.respondText(text = "Order with id: $orderId could not be found.")
+            }
         }
     }
 }

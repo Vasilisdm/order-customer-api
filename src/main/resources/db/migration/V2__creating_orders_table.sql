@@ -12,5 +12,5 @@ create table orderItems
     name     varchar(255) not null,
     quantity int          not null,
     price    double       not null,
-    constraint fk_order foreign key (order_id) references orders (id)
+    constraint fk_order foreign key (order_id) references orders (id) on delete cascade
 );

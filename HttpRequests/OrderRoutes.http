@@ -40,7 +40,7 @@ GET http://localhost:8080/order/1000
 Content-Type: application/json
 
 ###
-DELETE http://localhost:8080//order/100
+DELETE http://localhost:8080//order/1
 
 ###
 GET http://localhost:8080/order/100/total
