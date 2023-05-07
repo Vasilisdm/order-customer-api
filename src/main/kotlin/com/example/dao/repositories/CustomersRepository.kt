@@ -1,5 +1,7 @@
-package com.example.dao
+package com.example.dao.repositories
 
+import com.example.dao.Database
+import com.example.dao.interfaces.Customers
 import com.example.models.CustomerCreated
 import com.example.models.CustomerCreation
 import org.jooq.generated.Tables.CUSTOMERS

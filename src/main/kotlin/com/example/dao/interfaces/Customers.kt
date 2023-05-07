@@ -1,4 +1,4 @@
-package com.example.dao
+package com.example.dao.interfaces
 
 import com.example.models.CustomerCreated
 import com.example.models.CustomerCreation

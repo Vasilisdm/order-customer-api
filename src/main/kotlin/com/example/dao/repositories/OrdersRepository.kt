@@ -1,5 +1,7 @@
-package com.example.dao
+package com.example.dao.repositories
 
+import com.example.dao.Database
+import com.example.dao.interfaces.Orders
 import com.example.models.*
 import org.jooq.generated.Tables.ORDERITEMS
 import org.jooq.generated.Tables.ORDERS

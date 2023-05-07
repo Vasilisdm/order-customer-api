@@ -1,6 +1,6 @@
 package com.example.routes
 
-import com.example.dao.CustomersRepository
+import com.example.dao.repositories.CustomersRepository
 import com.example.models.CustomerCreated
 import com.example.models.CustomerCreation
 import io.ktor.http.*

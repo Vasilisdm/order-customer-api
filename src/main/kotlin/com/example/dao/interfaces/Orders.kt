@@ -1,4 +1,4 @@
-package com.example.dao
+package com.example.dao.interfaces
 
 import com.example.models.OrderCreated
 import com.example.models.OrderCreation
