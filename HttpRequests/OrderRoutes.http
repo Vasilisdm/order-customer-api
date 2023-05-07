@@ -2,27 +2,26 @@ POST http://localhost:8080/order
 Content-Type: application/json
 
 {
-  "creationDate": "2023-10-11",
   "items": [
     {
       "name": "MX MECHANICAL MINI FOR MAC",
-      "amount": "1",
-      "price": "159.99"
+      "quantity": 1,
+      "price": 159.99
     },
     {
       "name": "LIFT FOR MAC",
-      "amount": "1",
-      "price": "79.99"
+      "quantity": 1,
+      "price": 79.99
     },
     {
       "name": "MX MASTER 3S FOR MAC",
-      "amount": "1",
-      "price": "129.99"
+      "quantity": 1,
+      "price": 129.99
     },
     {
       "name": "MX KEYS MINI FOR MAC",
-      "amount": "1",
-      "price": "119.00"
+      "quantity": 1,
+      "price": 119.00
     }
   ]
 }
